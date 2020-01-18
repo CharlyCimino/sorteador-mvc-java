@@ -11,11 +11,22 @@ public class LectorTexto {
 	private FileReader fr;
 	private BufferedReader br;
 
-	public LectorTexto(String ruta) throws FileNotFoundException {
-		this.fr = new FileReader(new File(ruta));
+	/**
+	 * Construye un lector de archivos de texto.
+	 * @param rutaAbsoluta La ruta absoluta hacia el archivo de texto.
+	 * @throws FileNotFoundException Si no se encuentra el archivo.
+	 */
+	public LectorTexto(String rutaAbsoluta) throws FileNotFoundException {
+		this.fr = new FileReader(new File(rutaAbsoluta));
 		this.br = new BufferedReader(this.fr);
 	}
 	
+	/**
+	 * Retorna Un ArrayList de cadenas, obtenidas del archivo de texto,
+	 * a razón de una cadena por cada salto de línea.
+	 * @return Un ArrayList de cadenas, obtenidas del archivo de texto.
+	 * @throws IOException Si ocurre un error en el proceso de lectura.
+	 */
 	public ArrayList<String> leerLineas() throws IOException {
 		ArrayList<String> lines = new ArrayList<String>();
 		String cadena = leerLinea();
