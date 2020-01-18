@@ -8,21 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class LectorTexto {
-	private FileReader archivoLectura;
-	private BufferedReader bufferDeEntrada;
+	private FileReader fr;
+	private BufferedReader br;
 
-	public LectorTexto(String path) throws FileNotFoundException {
-		prepararLectura(path);
-	}
-
-	private void prepararLectura(String ruta) throws FileNotFoundException {
-		this.archivoLectura = new FileReader(new File(ruta));
-		bufferDeEntrada = new BufferedReader(this.archivoLectura);
-	}
-
-	private String leerLinea() throws IOException {
-		String linea = bufferDeEntrada.readLine();
-		return linea;
+	public LectorTexto(String ruta) throws FileNotFoundException {
+		this.fr = new FileReader(new File(ruta));
+		this.br = new BufferedReader(this.fr);
 	}
 	
 	public ArrayList<String> leerLineas() throws IOException {
@@ -36,7 +27,11 @@ public class LectorTexto {
 		return lines;
 	}
 
+	private String leerLinea() throws IOException {
+		return this.br.readLine();
+	}
+	
 	private void cerrarArchivo() throws IOException {
-		archivoLectura.close();
+		this.fr.close();
 	}
 }
