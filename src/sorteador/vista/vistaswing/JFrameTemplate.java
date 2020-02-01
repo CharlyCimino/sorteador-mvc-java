@@ -1,4 +1,4 @@
-package sorteador.vistas.vistaswing;
+package sorteador.vista.vistaswing;
 
 import java.awt.BorderLayout;
 import java.awt.Component;

@@ -1,13 +1,13 @@
-package sorteador.modelo.modeloarchivos;
+package sorteador.modelo;
 
 import java.io.IOException;
 import sorteador.modelo.Sorteador;
 
-public class ModeloArchivos {
+public class Modelo {
 
     private Sorteador<String> s;
 
-    public ModeloArchivos() {
+    public Modelo() {
         this.s = new Sorteador<>();
     }
 

@@ -1,4 +1,4 @@
-package sorteador.modelo.modeloarchivos;
+package sorteador.modelo;
 
 import java.io.BufferedReader;
 import java.io.File;

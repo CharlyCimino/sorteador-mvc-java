@@ -1,4 +1,4 @@
-package sorteador.vistas.vistaswing;
+package sorteador.vista.vistaswing;
 
 import java.awt.Dimension;
 import java.awt.Font;

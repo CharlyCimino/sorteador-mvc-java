@@ -1,4 +1,4 @@
-package sorteador.vistas.vistaconsola;
+package sorteador.vista.vistaconsola;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package sorteador.vistas;
+package sorteador.vista;
 
 import java.awt.event.ActionListener;
 
