@@ -1,20 +1,22 @@
 package sorteador;
 
-import sorteador.vistas.IVista;
-import sorteador.vistas.vistaconsola.VistaConsola;
-import sorteador.vistas.vistaswing.VistaSwing;
+import sorteador.vista.IVista;
+import sorteador.vista.vistaconsola.VistaConsola;
+import sorteador.vista.vistaswing.VistaSwing;
 
 public class FactoryVistas {
-	private FactoryVistas() {}
-	
-	public static IVista getVista (String tipo) {
-		switch (tipo) {
-			case "Swing":
-				return new VistaSwing(); 
-			case "Consola":
-				return new VistaConsola();
-			default:
-				return null;
-		}
-	}
+
+    private FactoryVistas() {
+    }
+
+    public static IVista getVista(String tipo) {
+        switch (tipo) {
+            case "Swing":
+                return new VistaSwing();
+            case "Consola":
+                return new VistaConsola();
+            default:
+                return null;
+        }
+    }
 }

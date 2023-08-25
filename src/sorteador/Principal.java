@@ -1,14 +1,14 @@
 package sorteador;
 
 import javax.swing.JOptionPane;
-import sorteador.modelo.modeloarchivos.ModeloArchivos;
-import sorteador.vistas.IVista;
+import sorteador.modelo.Modelo;
+import sorteador.vista.IVista;
 
 public class Principal {
 
     public static void main(String[] args) {
 
-        ModeloArchivos model = new ModeloArchivos();
+        Modelo model = new Modelo();
 
         // Selector de la vista
         String[] vistas = {"Swing", "Consola"};

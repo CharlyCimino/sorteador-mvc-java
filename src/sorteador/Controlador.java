@@ -2,15 +2,15 @@ package sorteador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import sorteador.modelo.modeloarchivos.ModeloArchivos;
-import sorteador.vistas.IVista;
+import sorteador.modelo.Modelo;
+import sorteador.vista.IVista;
 
 public class Controlador {
 
     private IVista v;
-    private ModeloArchivos m;
+    private Modelo m;
 
-    public Controlador(IVista v, ModeloArchivos m) {
+    public Controlador(IVista v, Modelo m) {
         this.v = v;
         this.m = m;
     }

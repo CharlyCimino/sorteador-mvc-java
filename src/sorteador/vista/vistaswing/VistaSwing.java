@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import sorteador.vistas.IVista;
+import sorteador.vista.IVista;
 
 public final class VistaSwing extends JFrameTemplate implements IVista {
 

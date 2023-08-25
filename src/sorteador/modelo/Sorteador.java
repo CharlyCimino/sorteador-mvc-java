@@ -1,140 +1,89 @@
 package sorteador.modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 /**
- * Colección que permite ingresar elementos de cualquier tipo y devolverlos en
+ * Colección que permite agregar elementos de cualquier tipo y devolverlos en
  * orden aleatorio.
  * 
- * @author Carlos E. Cimino
- * @see <a href="http://www.github.com/caemci"/>http://www.github.com/caemci</a>
+ * @author Charly Cimino Aprendé más Java en mi canal:
+ * https://www.youtube.com/c/CharlyCimino Encontrá más código en mi repo de
+ * GitHub: https://github.com/CharlyCimino
  */
+public class Sorteador<T> {
 
-public class Sorteador<T> implements Iterable<T> {
-	private ArrayList<T> elementos;
-	private ArrayList<T> candidatos;
-	private Random random;
+    private ArrayList<T> elementos;
+    private Random random;
 
-	/**
-	 * Construye un nuevo sorteador de elementos.
-	 */
-	public Sorteador() {
-		this.candidatos = new ArrayList<T>();
-		this.elementos = new ArrayList<T>();
-		this.random = new Random();
-	}
+    /**
+     * Construye un nuevo sorteador de elementos.
+     */
+    public Sorteador() {
+        this.elementos = new ArrayList<>();
+        this.random = new Random();
+    }
 
-	/**
-	 * Inserta <code>elemento</code> en el sorteador siempre y cuando no exista.
-	 * 
-	 * @param elemento El elemento a insertar.
-	 */
-	public void insertar(T elemento) {
-		if (existe(elemento)) {
-			throw new IllegalArgumentException("Ya existe el elemento " + elemento);
-		} else {
-			candidatos.add(elemento);
-			elementos.add(elemento);
-		}
-	}
+    /**
+     * Agrega un elemento a este sorteador.
+     *
+     * @param elemento El elemento a agregar.
+     */
+    public void add(T elemento) {
+        elementos.add(elemento);
+    }
 
-	/**
-	 * Inserta cada uno de los elementos de <code>elementos</code> en la colección.
-	 * 
-	 * @param elementos Los elementos a insertar.
-	 */
-	public void insertar(T[] elementos) {
-		this.insertar(Arrays.asList(elementos));
-	}
+    /**
+     * Retorna un elemento de este sorteador (sin quitarlo) de manera aleatoria.
+     *
+     * @return un elemento de este sorteador (sin quitarlo) de manera aleatoria.
+     * @throws NoSuchElementException Si ya no quedan elementos en este
+     * sorteador.
+     */
+    public T get() {
+        checkEmptyness();
+        return elementos.get(rnd());
+    }
 
-	/**
-	 * Inserta cada uno de los elementos de <code>elementos</code> en la colección.
-	 * 
-	 * @param elementos Los elementos a insertar.
-	 */
-	public void insertar(List<T> elementos) {
-		this.candidatos.addAll(elementos);
-		this.elementos.addAll(elementos);
-	}
+    /**
+     * Retorna un elemento de este sorteador (quitándolo) de manera aleatoria.
+     *
+     * @return un elemento de este sorteador (quitándolo) de manera aleatoria.
+     * @throws NoSuchElementException Si ya no quedan elementos en este
+     * sorteador.
+     */
+    public T remove() {
+        checkEmptyness();
+        return elementos.remove(rnd());
+    }
 
-	/**
-	 * Retorna un elemento de la colección de manera aleatoria.
-	 * 
-	 * @return un elemento de la colección de manera aleatoria.
-	 */
-	public T proximoSorteado() {
-		T elemento;
-		if (estaVacio()) {
-			throw new UnsupportedOperationException("No hay elementos en el sorteador");
-		} else {
-			int a = aleatorio(this.candidatos.size());
-			elemento = this.candidatos.remove(a); // remove() lo devuelve antes de borrarlo
-		}
-		return elemento;
-	}
+    /**
+     * Retorna un entero aleatorio entre 0 (inclusive) y la cantidad de elementos del sorteador (sin incluir)
+     *
+     * @return un entero aleatorio entre 0 (inclusive) y la cantidad de elementos del sorteador (sin incluir)
+     */
+    private int rnd() {
+        return random.nextInt(elementos.size());
+    }
 
-	/**
-	 * Retorna <code>true</code> si no hay elementos en la colección.
-	 * 
-	 * @return <code>true</code> si no hay elementos en esta colección.
-	 */
-	public boolean estaVacio() {
-		return this.candidatos.isEmpty();
-	}
+    /**
+     * Chequea que el sorteador no esté vacío, de lo contrario, lanza una excepción
+     * @throws NoSuchElementException Si ya no quedan elementos en este
+     * sorteador.
+     */
+    private void checkEmptyness() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("No hay más elementos en el sorteador");
+        }
+    }
 
-	/**
-	 * Retorna <code>true</code> si existe <code>elemento</code> en la colección.
-	 * 
-	 * @param elemento El elemento a comprobar.
-	 * @return <code>true</code> si existe <code>elemento</code> en esta colección.
-	 */
-	private boolean existe(T elemento) {
-		return this.candidatos.contains(elemento);
-	}
-
-	/**
-	 * Retorna <code>true</code> si existe <code>elemento</code> en la colección.
-	 * 
-	 * @param elemento El elemento a comprobar.
-	 * @return <code>true</code> si existe <code>elemento</code> en esta colección.
-	 */
-	public void reiniciar() {
-		this.candidatos = new ArrayList<T>(this.elementos);
-	}
-
-	/**
-	 * Retorna un número entero aleatorio entre 0 y <code>n-1</code>
-	 * 
-	 * @param n Entero máximo a devolver (sin incluir)
-	 * @return un número entero aleatorio entre 0 y <code>n-1</code>
-	 */
-	private int aleatorio(int n) {
-		return random.nextInt(n);
-	}
-
-	/**
-	 * Retorna un iterador para esta colección
-	 * 
-	 * @return un iterador para esta colección
-	 */
-	@Override
-	public Iterator<T> iterator() {
-		return new IteratorSorteador();
-	}
-
-	private class IteratorSorteador implements Iterator<T> {
-		@Override
-		public boolean hasNext() {
-			return !estaVacio();
-		}
-
-		@Override
-		public T next() {
-			return proximoSorteado();
-		}
-	}
+    /**
+     * Retorna <code>true</code> si no hay elementos en este sorteador.
+     *
+     * @return <code>true</code> si no hay elementos en este sorteador.
+     */
+    public boolean isEmpty() {
+        return elementos.isEmpty();
+    }
 }

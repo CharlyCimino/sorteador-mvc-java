@@ -1,26 +1,31 @@
 package sorteador.modelo;
 
 import java.io.IOException;
-import sorteador.modelo.Sorteador;
+import java.util.Collection;
 
 public class Modelo {
 
     private Sorteador<String> s;
+    private String ruta;
 
     public Modelo() {
         this.s = new Sorteador<>();
     }
 
     public String proximoSorteado() {
-        return s.proximoSorteado();
+        return s.remove();
     }
 
     public void cargarSorteador(String ruta) throws IOException {
-        LectorTexto lt = new LectorTexto(ruta);
-        s.insertar(lt.leerLineas());
+        this.ruta = ruta;
+        LectorTexto lt = new LectorTexto(this.ruta);
+        Collection<String> lineas = lt.leerLineas();
+        for (String linea : lineas) {
+            s.add(linea);
+        }        
     }
 
-    public void reiniciar() {
-        this.s.reiniciar();
+    public void reiniciar() throws IOException {
+        cargarSorteador(this.ruta);
     }
 }

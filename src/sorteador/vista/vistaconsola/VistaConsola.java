@@ -3,7 +3,7 @@ package sorteador.vista.vistaconsola;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import sorteador.vistas.IVista;
+import sorteador.vista.IVista;
 
 public class VistaConsola implements IVista {
 	
